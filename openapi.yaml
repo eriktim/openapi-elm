@@ -1,0 +1,36 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Elm generator test
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:9000
+paths:
+  /test:
+    get:
+      responses:
+        "200":
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RequiredVsNullable"
+components:
+  schemas:
+    RequiredVsNullable:
+      required:
+        - required
+        - nullable
+      properties:
+        required:
+          type: string
+        nullable:
+          type: string
+          nullable: true
+        optional:
+          type: string
+        optionalAndNullable:
+          type: string
+          nullable: true
+
