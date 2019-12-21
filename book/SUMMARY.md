@@ -7,5 +7,5 @@
 * [Generated code](generated_code/README.md)
   * [Schemas](generated_code/schemas.md)
   * [Paths](generated_code/paths.md)
-* [Q&A](qa/README.md)
-* [Contributions](contributions/README.md)
+* [Q&A](qa.md)
+* [Contributions](contributions.md)
