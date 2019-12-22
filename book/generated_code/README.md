@@ -27,6 +27,6 @@ send { basePath, accessToken } toMsg request =
         |> Api.send toMsg
 ```
 
-Now you can start using this `send` function instead of the default `Api.send`.
+Now throughout your program you can use this function instead of the default `Api.send`.
 
 The next sections give some examples on OpenAPI specifications and the corresponding generated Elm code.
