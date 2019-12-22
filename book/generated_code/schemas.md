@@ -306,7 +306,7 @@ components:
 ```
 
 OpenAPI allows you to specify recursive types.
-Elm cannot [handle recursive type aliases](https://elm-lang.org/0.19.0/recursive-alias).
+Elm cannot handle [recursive type aliases](https://elm-lang.org/0.19.0/recursive-alias).
 Therefore, when generating recursive types, addition types are generated that wrap the recursive properties in new types.
 
 ```elm
