@@ -1,5 +1,9 @@
 # Schemas
 
+This section describes what Elm types are being generated from certain OpenAPI schemas.
+Each sub-section contains one or more OpenAPI schemas, a description and the resulting Elm code.
+The JSON encoders and decoders are not shown as they are not relevant for using the types.
+
 ## Primitives
 
 ```yaml
