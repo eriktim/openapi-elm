@@ -7,7 +7,7 @@ info:
 servers:
   - url: http://localhost:9000
 paths:
-  /test:
+  /maybe:
     get:
       responses:
         "200":
@@ -15,22 +15,156 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RequiredVsNullable"
+                $ref: "#/components/schemas/Maybe"
 components:
   schemas:
-    RequiredVsNullable:
+    Absent:
+      description: Model having absent and null values
       required:
         - required
-        - nullable
+        - requiredNullable
       properties:
+        default:
+          type: string
         required:
           type: string
         nullable:
           type: string
           nullable: true
-        optional:
-          type: string
-        optionalAndNullable:
+        requiredNullable:
           type: string
           nullable: true
+    Array:
+      description: Model with arrays
+      required:
+        - array
+        - arrayOfArray
+      properties:
+        array:
+          type: array
+          items:
+            type: string
+        arrayOfArray:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+    Composed:
+      description: Composed model
+      allOf:
+        - $ref: "#/components/schemas/ComposedBase"
+        - type: object
+          properties:
+            value:
+              type: string
+    ComposedBase:
+      required:
+        - base
+      properties:
+        base:
+          type: number
+    Discriminated:
+      description: Discriminated model
+      required:
+        - kind
+      properties:
+        kind:
+          type: string
+      discriminator:
+        propertyName: kind
+    DiscriminatedA:
+      allOf:
+        - $ref: "#/components/schemas/Discriminated"
+        - type: object
+          properties:
+            a:
+              type: string
+    DiscriminatedB:
+      allOf:
+        - $ref: "#/components/schemas/Discriminated"
+        - type: object
+          properties:
+            b:
+              type: string
+    Enum:
+      type: enum
+      enum:
+        - foo
+        - bar
+        - baz
+    Maybe:
+      description: Model using reserved words
+      properties:
+        type:
+          type: string
+        if:
+          type: boolean
+    OneOf:
+      description: One of two models
+      oneOf:
+        - $ref: "#/components/schemas/OneOfA"
+        - $ref: "#/components/schemas/OneOfB"
+    OneOfA:
+      properties:
+        a:
+          type: string
+    OneOfB:
+      properties:
+        b:
+          type: string
+    Primitive:
+      description: Model with primitive properties
+      properties:
+        string:
+          type: string
+        number:
+          type: number
+        float:
+          type: number
+          format: float
+        double:
+          type: number
+          format: double
+        integer:
+          type: integer
+        short:
+          type: integer
+          format: int32
+        long:
+          type: integer
+          format: int64
+        boolean:
+          type: boolean
+    Recursion:
+      properties:
+        maybe:
+          $ref: "#/components/schemas/Recursion"
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/Recursion"
+        ref:
+          $ref: "#/components/schemas/RecursionLoop"
+    RecursionLoop:
+      properties:
+        ref:
+          $ref: "#/components/schemas/Recursion"
+    UnsafeCharacters:
+      description: Model using unsafe characters
+      properties:
+        $prefix:
+          type: string
+        suffix$:
+          type: string
+        r@nd0m_$t#ff:
+          type: string
+        _before:
+          type: string
+        after_:
+          type: string
+        _both_:
+          type: string
+        in_the_middle:
+          type: string
 
