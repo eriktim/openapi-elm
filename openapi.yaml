@@ -88,11 +88,17 @@ components:
             b:
               type: string
     Enum:
-      type: enum
+      type: string
       enum:
         - foo
         - bar
         - baz
+    Enumeric:
+      type: number
+      enum:
+        - 1
+        - 2
+        - 3
     Maybe:
       description: Model using reserved words
       properties:

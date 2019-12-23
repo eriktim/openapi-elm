@@ -63,6 +63,7 @@ components:
 ```
 
 OpenAPI enumerations are generated as Elm custom types.
+Both string and integer values are supported.
 The generator also exposes a function to get a list of all available variants.
 
 ```elm
