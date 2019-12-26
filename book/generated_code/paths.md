@@ -132,6 +132,7 @@ paths:
 ```
 
 OpenAPI also allows you to add headers to each request.
+Note that one of the headers is required while the other is not.
 
 ```elm
 headerPost : String -> Maybe Int -> Api.Request String
