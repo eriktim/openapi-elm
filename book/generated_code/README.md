@@ -2,31 +2,20 @@
 # Generated code
 
 The generated Elm code consists of two major parts:
-* Types, i.e. records (type aliases), custom types and custom types with data;
+* Types, i.e. records (type aliases), custom types and custom types with data.
+  All types are written the `Api/Data.elm` module;
 * `Request`s for making HTTP requests.
+  This type splits the native [`Http.request`](https://package.elm-lang.org/packages/elm/http/latest/Http#request) into two:
+  (1) define the request to be made and
+  (2) send the request via a command and a `msg`.
 
-The `Request` type is a _opaque_ type that describes how to make a HTTP request.
-Each `Request` can be customised using the update functions in `Api.elm`, e.g. adding headers, changing the base path, setting a timeout. Using the `send` function and a `Msg` the request can be converted to a `Cmd Msg` which allows Elm to make the actual call.
+The OpenAPI generator also generates a base module `Api.elm` containing the `Request` type and several useful library functions.
+The most important is the `send` function that allows you to convert a `Request` to a `Cmd msg`.
+See [Customization](../customization.md) for more advanced usages.
 
-The customisation also allows you to set-up your own generic solution for making HTTP request.
-Let's say you need to add an authentication header to each request and your base path is loaded from your program's flags.
-You capture this data and store it in a `Server` record.
-The customisation enables you to define your own `send` function like this:
-
-```elm
-type alias Server =
-    { basePath : String
-    , accessToken : String
-    }
-
-send : Server -> (Result Http.Error a -> msg) -> Request a -> Cmd msg
-send { basePath, accessToken } toMsg request =
-    request
-        |> Api.withBasePath basePath
-        |> Api.withHeader "ACCESS_TOKEN" accessToken
-        |> Api.send toMsg
-```
-
-Now throughout your program you can use this function instead of the default `Api.send`.
+The generator uses as little dependencies as possible.
+However, when using one of the following OpenAPI formats you will need to load additional libraries:
+* `date` or `date-time` requires `elm/time` and `rtfeldman/elm-iso8601-date-strings` (via `Api/Time.elm`);
+* `uuid` requires `danyx23/elm-uuid`.
 
 The next sections give some examples on OpenAPI specifications and the corresponding generated Elm code.
