@@ -1,4 +1,6 @@
 /_book
+/example/generated
 /node_modules
 /package-lock.json
 /test
+elm-stuff/

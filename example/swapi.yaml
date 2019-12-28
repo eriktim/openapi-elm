@@ -1,0 +1,108 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: The Star Wars API
+servers:
+  - url: https://swapi.co/api/
+paths:
+  /planets:
+    get:
+      tags:
+        - swapi
+      operationId: getPlanets
+      parameters:
+        - name: page
+          in: query
+          description: Page to fetch
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of planets
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlanetList"
+  /planets/{planetId}:
+    get:
+      tags:
+        - swapi
+      operationId: getPlanet
+      parameters:
+        - name: planetId
+          in: path
+          description: Planet ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Planet details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Planet"
+components:
+  schemas:
+    Planet:
+      description: Planet
+      required:
+        - name
+        - diameter
+        - rotation_period
+        - orbital_period
+        - gravity
+        - population
+        - climate
+        - terrain
+        - surface_water 
+        - created
+        - edited
+      properties:
+        name:
+          type: string
+          description: The name of this planet
+        diameter:
+          type: string
+          description: The diameter of this planet in kilometers
+        rotation_period:
+          type: string
+          description: The number of standard hours it takes for this planet to complete a single rotation on its axis
+        orbital_period:
+          type: string
+          description: The number of standard days it takes for this planet to complete a single orbit of its local star
+        gravity:
+          type: string
+          description: A number denoting the gravity of this planet, where "1" is normal or 1 standard G. "2" is twice or 2 standard Gs. "0.5" is half or 0.5 standard Gs
+        population:
+          type: string
+          description: The average population of sentient beings inhabiting this planet
+        climate:
+          type: string
+          description: The climate of this planet. Comma separated if diverse
+        terrain:
+          type: string 
+          description: The terrain of this planet. Comma separated if diverse
+        surface_water :
+          type: string 
+          description: The percentage of the planet surface that is naturally occurring water or bodies of water
+        created:
+          type: string 
+          format: date-time
+          description: the ISO 8601 date format of the time that this resource was created
+        edited :
+          type: string 
+          format: date-time
+          description: the ISO 8601 date format of the time that this resource was edited
+    PlanetList:
+      description: List of planets
+      required:
+        - count
+        - results
+      properties:
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Planet"
