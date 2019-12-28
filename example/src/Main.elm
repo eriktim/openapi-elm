@@ -4,11 +4,11 @@ import Api
 import Api.Data as Data
 import Api.Request.Swapi as Swapi
 import Browser
+import Dict
 import Html exposing (Html)
 import Html.Attributes as Attr
 import Html.Events as Events
 import Http
-import Time
 
 
 main =
@@ -26,13 +26,13 @@ main =
 
 type alias Model =
     { page : Int
-    , planets : Planets
+    , state : State
     }
 
 
-type Planets
-    = NoPlanets
-    | Planets Data.PlanetList
+type State
+    = Loading
+    | Loaded { count : Int, planets : Dict.Dict String Data.Planet }
     | Errored String
 
 
@@ -55,10 +55,18 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         PlanetsLoaded (Ok list) ->
-            ( { model | planets = Planets list }, Cmd.none )
+            ( { model
+                | state =
+                    Loaded
+                        { count = list.count
+                        , planets = planetDict list.results
+                        }
+              }
+            , Cmd.none
+            )
 
         PlanetsLoaded (Err err) ->
-            ( { model | planets = Errored <| errorToString err }, Cmd.none )
+            ( { model | state = Errored <| errorToString err }, Cmd.none )
 
         ClickedPreviousPage ->
             fetchPlanets (model.page - 1)
@@ -67,31 +75,12 @@ update msg model =
             fetchPlanets (model.page + 1)
 
 
-errorToString : Http.Error -> String
-errorToString err =
-    case err of
-        Http.BadUrl message ->
-            message
-
-        Http.Timeout ->
-            "Timeout"
-
-        Http.NetworkError ->
-            "Network error"
-
-        Http.BadStatus code ->
-            "Bad status " ++ String.fromInt code
-
-        Http.BadBody message ->
-            message
-
-
 
 -- SUBSCRIPTIONS
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     Sub.none
 
 
@@ -105,25 +94,25 @@ view model =
 
 
 viewPlanets : Model -> Html Msg
-viewPlanets { page, planets } =
-    case planets of
-        NoPlanets ->
+viewPlanets { page, state } =
+    case state of
+        Loading ->
             Html.text "Loading..."
 
-        Planets list ->
+        Loaded data ->
             Html.div []
                 [ Html.text <| "Planets"
-                , Html.ul [] <| List.map viewPlanet list.results
-                , viewPagination page (numPages list.count)
+                , Html.ul [] <| List.map viewPlanet (Dict.toList data.planets)
+                , viewPagination page (numPages data.count)
                 ]
 
         Errored reason ->
             Html.text <| "Request failed: " ++ reason
 
 
-viewPlanet : Data.Planet -> Html Msg
-viewPlanet planet =
-    Html.li [] [ Html.text planet.name ]
+viewPlanet : ( String, Data.Planet ) -> Html Msg
+viewPlanet ( id, planet ) =
+    Html.li [] [ Html.text <| planet.name ++ " (#" ++ id ++ ")" ]
 
 
 viewPagination : Int -> Int -> Html Msg
@@ -170,6 +159,40 @@ numPages count =
 
 fetchPlanets : Int -> ( Model, Cmd Msg )
 fetchPlanets page =
-    ( { page = page, planets = NoPlanets }
+    ( { page = page, state = Loading }
     , Api.send PlanetsLoaded (Swapi.getPlanets <| Just page)
     )
+
+
+errorToString : Http.Error -> String
+errorToString err =
+    case err of
+        Http.BadUrl message ->
+            message
+
+        Http.Timeout ->
+            "Timeout"
+
+        Http.NetworkError ->
+            "Network error"
+
+        Http.BadStatus code ->
+            "Bad status " ++ String.fromInt code
+
+        Http.BadBody message ->
+            message
+
+
+planetDict : List Data.Planet -> Dict.Dict String Data.Planet
+planetDict planets =
+    List.map (\planet -> ( lastPart planet.url, planet )) planets
+        |> Dict.fromList
+
+
+lastPart : String -> String
+lastPart str =
+    String.split "/" str
+        |> List.filter (not << String.isEmpty)
+        |> List.reverse
+        |> List.head
+        |> Maybe.withDefault ""

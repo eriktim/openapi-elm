@@ -58,6 +58,7 @@ components:
         - surface_water 
         - created
         - edited
+        - url
       properties:
         name:
           type: string
@@ -94,6 +95,8 @@ components:
           type: string 
           format: date-time
           description: the ISO 8601 date format of the time that this resource was edited
+        url:
+          type: string
     PlanetList:
       description: List of planets
       required:
