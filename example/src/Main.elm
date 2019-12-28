@@ -32,13 +32,25 @@ type alias Model =
 
 type State
     = Loading
-    | Loaded { count : Int, planets : Dict.Dict String Data.Planet }
+    | Loaded PlanetList
     | Errored String
+
+
+type alias PlanetList =
+    { count : Int
+    , planets : List Planet
+    }
+
+
+type alias Planet =
+    { id : String
+    , name : String
+    }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    fetchPlanets 1
+    loadPlanetPage 1
 
 
 
@@ -46,7 +58,7 @@ init _ =
 
 
 type Msg
-    = PlanetsLoaded (Result Http.Error Data.PlanetList)
+    = PlanetsLoaded (Result Http.Error PlanetList)
     | ClickedPreviousPage
     | ClickedNextPage
 
@@ -55,24 +67,16 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         PlanetsLoaded (Ok list) ->
-            ( { model
-                | state =
-                    Loaded
-                        { count = list.count
-                        , planets = planetDict list.results
-                        }
-              }
-            , Cmd.none
-            )
+            ( { model | state = Loaded list }, Cmd.none )
 
         PlanetsLoaded (Err err) ->
             ( { model | state = Errored <| errorToString err }, Cmd.none )
 
         ClickedPreviousPage ->
-            fetchPlanets (model.page - 1)
+            loadPlanetPage (model.page - 1)
 
         ClickedNextPage ->
-            fetchPlanets (model.page + 1)
+            loadPlanetPage (model.page + 1)
 
 
 
@@ -102,7 +106,7 @@ viewPlanets { page, state } =
         Loaded data ->
             Html.div []
                 [ Html.text <| "Planets"
-                , Html.ul [] <| List.map viewPlanet (Dict.toList data.planets)
+                , Html.ul [] <| List.map viewPlanet data.planets
                 , viewPagination page (numPages data.count)
                 ]
 
@@ -110,9 +114,9 @@ viewPlanets { page, state } =
             Html.text <| "Request failed: " ++ reason
 
 
-viewPlanet : ( String, Data.Planet ) -> Html Msg
-viewPlanet ( id, planet ) =
-    Html.li [] [ Html.text <| planet.name ++ " (#" ++ id ++ ")" ]
+viewPlanet : Planet -> Html Msg
+viewPlanet planet =
+    Html.li [] [ Html.text planet.name ]
 
 
 viewPagination : Int -> Int -> Html Msg
@@ -157,11 +161,40 @@ numPages count =
     ceiling (toFloat count / 10.0)
 
 
-fetchPlanets : Int -> ( Model, Cmd Msg )
-fetchPlanets page =
+getPlanets : Maybe Int -> Api.Request PlanetList
+getPlanets page =
+    Swapi.getPlanets page
+        |> Api.map mapPlanets
+
+
+loadPlanetPage : Int -> ( Model, Cmd Msg )
+loadPlanetPage page =
     ( { page = page, state = Loading }
-    , Api.send PlanetsLoaded (Swapi.getPlanets <| Just page)
+    , Api.send PlanetsLoaded (getPlanets <| Just page)
     )
+
+
+mapPlanets : Data.PlanetList -> PlanetList
+mapPlanets planets =
+    { count = planets.count
+    , planets = List.map mapPlanet planets.results
+    }
+
+
+mapPlanet : Data.Planet -> Planet
+mapPlanet planet =
+    { id = lastPart planet.url
+    , name = planet.name
+    }
+
+
+lastPart : String -> String
+lastPart str =
+    String.split "/" str
+        |> List.filter (not << String.isEmpty)
+        |> List.reverse
+        |> List.head
+        |> Maybe.withDefault ""
 
 
 errorToString : Http.Error -> String
@@ -181,18 +214,3 @@ errorToString err =
 
         Http.BadBody message ->
             message
-
-
-planetDict : List Data.Planet -> Dict.Dict String Data.Planet
-planetDict planets =
-    List.map (\planet -> ( lastPart planet.url, planet )) planets
-        |> Dict.fromList
-
-
-lastPart : String -> String
-lastPart str =
-    String.split "/" str
-        |> List.filter (not << String.isEmpty)
-        |> List.reverse
-        |> List.head
-        |> Maybe.withDefault ""
