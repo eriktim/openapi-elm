@@ -14,5 +14,5 @@ elm reactor # visit http://localhost:8000/src/Main.elm
 As an exercise try any of the following:
 
 * Add the diameter and edited timestamp of each planet to the table;
-* Make a custom command to fetch all the planets (without pagination) and show them in the table;
-* Make each planet navigate to a new page where you fetch the data for that planet only.
+* Make each table row navigate to a new page where you fetch the data for that planet only;
+* Fetch all data from all planets and show them in the table (without pagination).

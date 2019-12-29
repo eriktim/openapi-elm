@@ -1,7 +1,10 @@
 # Generator
 
-There are [multiple ways](https://openapi-generator.tech/) to run the generator, e.g. using a jar, docker image or npm.
+The OpenAPI Generator can automatically generates source code for many different languages.
+This allows you to create your back-end code and Elm code using the same specification.
+This contract ensures your Elm code always gets the data it expects.
 
+There are [multiple ways](https://openapi-generator.tech/) to run the generator, e.g. using a jar, docker image or npm.
 Here is an example on how to run the generator using npm:
 
 ```
