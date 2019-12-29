@@ -45,6 +45,7 @@ type alias PlanetList =
 type alias Planet =
     { id : String
     , name : String
+    , population : String
     }
 
 
@@ -105,9 +106,18 @@ viewPlanets { page, state } =
 
         Loaded data ->
             Html.div []
-                [ Html.text <| "Planets"
-                , Html.ul [] <| List.map viewPlanet data.planets
-                , viewPagination page (numPages data.count)
+                [ viewPagination page (numPages data.count)
+                , Html.table [] <|
+                    [ Html.caption [] [ Html.text "Planets" ]
+                    , Html.thead []
+                        [ Html.tr []
+                            [ Html.th [] [ Html.text "ID" ]
+                            , Html.th [] [ Html.text "Name" ]
+                            , Html.th [] [ Html.text "Population" ]
+                            ]
+                        ]
+                    ]
+                        ++ List.map viewPlanet data.planets
                 ]
 
         Errored reason ->
@@ -116,7 +126,11 @@ viewPlanets { page, state } =
 
 viewPlanet : Planet -> Html Msg
 viewPlanet planet =
-    Html.li [] [ Html.text planet.name ]
+    Html.tr []
+        [ Html.td [] [ Html.text planet.id ]
+        , Html.td [] [ Html.text planet.name ]
+        , Html.td [] [ Html.text planet.population ]
+        ]
 
 
 viewPagination : Int -> Int -> Html Msg
@@ -129,7 +143,7 @@ viewPagination page pageCount =
                 ]
 
             else
-                []
+                [ Attr.style "color" "white " ]
 
         nextAttr =
             if page < pageCount then
@@ -138,27 +152,22 @@ viewPagination page pageCount =
                 ]
 
             else
-                []
+                [ Attr.style "color" "white " ]
 
         attr =
             [ Attr.style "margin-left" "8px"
             , Attr.style "margin-right" "8px"
             ]
     in
-    Html.div [ Attr.style "display" "flex" ]
-        [ Html.div prevAttr [ Html.text "<" ]
-        , Html.div attr [ Html.text <| "page " ++ String.fromInt page ++ " of " ++ String.fromInt pageCount ]
-        , Html.div nextAttr [ Html.text ">" ]
+    Html.div [ Attr.style "margin-bottom" "24px" ]
+        [ Html.span prevAttr [ Html.text "<" ]
+        , Html.span attr [ Html.text <| "page " ++ String.fromInt page ++ " of " ++ String.fromInt pageCount ]
+        , Html.span nextAttr [ Html.text ">" ]
         ]
 
 
 
 -- HELPER
-
-
-numPages : Int -> Int
-numPages count =
-    ceiling (toFloat count / 10.0)
 
 
 getPlanets : Maybe Int -> Api.Request PlanetList
@@ -185,6 +194,7 @@ mapPlanet : Data.Planet -> Planet
 mapPlanet planet =
     { id = lastPart planet.url
     , name = planet.name
+    , population = planet.population
     }
 
 
@@ -195,6 +205,11 @@ lastPart str =
         |> List.reverse
         |> List.head
         |> Maybe.withDefault ""
+
+
+numPages : Int -> Int
+numPages count =
+    ceiling (toFloat count / 10.0)
 
 
 errorToString : Http.Error -> String

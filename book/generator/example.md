@@ -3,6 +3,7 @@
 This example uses the [Star Wars API](https://swapi.co/).
 See the [example source code](https://github.com/eriktim/openapi-elm/tree/master/example).
 The OpenAPI specification only covers part of the Star Wars API, namely get all planets or a specific one.
+As the model does not exactly match the data we want to have in Elm we use `Api.map` to map to a custom model instead.
 
 ```bash
 cd example
