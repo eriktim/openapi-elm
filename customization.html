@@ -1,0 +1,426 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Customization · Elm with OpenAPI</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Erik Timmers">
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="qa.html" />
+    
+    
+    <link rel="prev" href="generated_code/paths.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="openapi.html">
+            
+                <a href="openapi.html">
+            
+                    
+                    OpenAPI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="generator/">
+            
+                <a href="generator/">
+            
+                    
+                    Generator
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="generator/example.html">
+            
+                <a href="generator/example.html">
+            
+                    
+                    Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="generated_code/">
+            
+                <a href="generated_code/">
+            
+                    
+                    Generated code
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="generated_code/schemas.html">
+            
+                <a href="generated_code/schemas.html">
+            
+                    
+                    Schemas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="generated_code/paths.html">
+            
+                <a href="generated_code/paths.html">
+            
+                    
+                    Paths
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="customization.html">
+            
+                <a href="customization.html">
+            
+                    
+                    Customization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="qa.html">
+            
+                <a href="qa.html">
+            
+                    
+                    Q&A
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="contributions.html">
+            
+                <a href="contributions.html">
+            
+                    
+                    Contributions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Customization</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="customization">Customization</h1>
+<p>The <code>Request</code> type is a <em>opaque</em> type that describes how to make a HTTP request.
+Each <code>Request</code> can be customised using the update functions in <code>Api.elm</code>, e.g. adding headers, changing the base path, setting a timeout. Using the <code>send</code> function and a <code>Msg</code> the request can be converted to a <code>Cmd Msg</code> which allows Elm to make the actual call.</p>
+<p>The customisation also allows you to set-up your own generic solution for making HTTP request.
+Let&apos;s say you need to add an authentication header to each request and your base path is loaded from your program&apos;s flags.
+You capture this data and store it in a <code>Server</code> record.
+The customisation enables you to define your own <code>send</code> function like this:</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">Server</span> =
+    { basePath : <span class="hljs-type">String</span>
+    , accessToken : <span class="hljs-type">String</span>
+    }
+
+<span class="hljs-title">send</span> : <span class="hljs-type">Server</span> -&gt; (<span class="hljs-type">Result</span> <span class="hljs-type">Http</span>.<span class="hljs-type">Error</span> a -&gt; msg) -&gt; <span class="hljs-type">Request</span> a -&gt; <span class="hljs-type">Cmd</span> msg
+<span class="hljs-title">send</span> { basePath, accessToken } toMsg request =
+    request
+        |&gt; <span class="hljs-type">Api</span>.withBasePath basePath
+        |&gt; <span class="hljs-type">Api</span>.withHeader <span class="hljs-string">&quot;ACCESS_TOKEN&quot;</span> accessToken
+        |&gt; <span class="hljs-type">Api</span>.send toMsg
+</code></pre>
+<p>Now throughout your program you can use this function instead of the default <code>Api.send</code>.</p>
+<p>The following sub-sections explain the possibile customizations.</p>
+<h3 id="map"><code>map</code></h3>
+<p><code>Api.map</code> allows you to change the return type of a <code>Request</code>.
+This may be usefull when the OpenAPI specification returns a different type from what you would like to use.</p>
+<p>An example:</p>
+<pre><code class="lang-elm"><span class="hljs-comment">-- generated code</span>
+<span class="hljs-title">updateUser</span> : <span class="hljs-type">Api</span>.<span class="hljs-type">Data</span>.<span class="hljs-type">User</span> -&gt; <span class="hljs-type">Api</span>.<span class="hljs-type">Request</span> <span class="hljs-type">Api</span>.<span class="hljs-type">Data</span>.<span class="hljs-type">User</span>
+
+<span class="hljs-title">toCustomUser</span> : <span class="hljs-type">Api</span>.<span class="hljs-type">Data</span>.<span class="hljs-type">User</span> -&gt; <span class="hljs-type">CustomUser</span>
+
+<span class="hljs-title">fromCustomUser</span> : <span class="hljs-type">CustomUser</span> -&gt; <span class="hljs-type">Api</span>.<span class="hljs-type">Data</span>.<span class="hljs-type">User</span>
+
+<span class="hljs-title">updateCustomUser</span> : <span class="hljs-type">CustomUser</span> -&gt; <span class="hljs-type">Api</span>.<span class="hljs-type">Request</span> <span class="hljs-type">CustomUser</span>
+<span class="hljs-title">updateCustomUser</span> = <span class="hljs-type">Api</span>.map toCustomUser &lt;&lt; updateUser &lt;&lt; fromCustomUser
+</code></pre>
+<h3 id="withbasepath"><code>withBasePath</code></h3>
+<p>You can override the base path as defined in the OpenAPI specification.
+You can do this per request or you can fully customize the <code>Api.send</code>.</p>
+<p>An example:</p>
+<pre><code class="lang-elm"><span class="hljs-title">sendWithBasePath</span> : (<span class="hljs-type">Result</span> <span class="hljs-type">Http</span>.<span class="hljs-type">Error</span> a -&gt; msg) -&gt; <span class="hljs-type">Request</span> a -&gt; <span class="hljs-type">Cmd</span> msg
+<span class="hljs-title">sendWithBasePath</span> toMsg request =
+    <span class="hljs-type">Api</span>.withBasePath <span class="hljs-string">&quot;http://elm-lang.org&quot;</span> request
+</code></pre>
+<h3 id="withtimeout"><code>withTimeout</code></h3>
+<p>By default, Elm HTTP requests have no timeout.
+You can set one per request or you can fully customize the <code>Api.send</code>.
+The timeout is defined in milliseconds.</p>
+<p>An example:</p>
+<pre><code class="lang-elm"><span class="hljs-title">sendWithTimeout</span> : (<span class="hljs-type">Result</span> <span class="hljs-type">Http</span>.<span class="hljs-type">Error</span> a -&gt; msg) -&gt; <span class="hljs-type">Request</span> a -&gt; <span class="hljs-type">Cmd</span> msg
+<span class="hljs-title">sendWithTimeout</span> toMsg request =
+    <span class="hljs-type">Api</span>.withTimeout <span class="hljs-number">30000</span> request
+</code></pre>
+<h3 id="withtracker"><code>withTracker</code></h3>
+<p>Elm HTTP allows you to <a href="https://package.elm-lang.org/packages/elm/http/latest/Http#track" target="_blank">track</a> requests.
+Setting the same tracker for each request does not make much send, but you can set one per requests or fully customize the <code>Api.send</code> to accept one.</p>
+<p>An example:</p>
+<pre><code class="lang-elm"><span class="hljs-title">sendAndTrack</span> : <span class="hljs-type">String</span> -&gt; (<span class="hljs-type">Result</span> <span class="hljs-type">Http</span>.<span class="hljs-type">Error</span> a -&gt; msg) -&gt; <span class="hljs-type">Request</span> a -&gt; <span class="hljs-type">Cmd</span> msg
+<span class="hljs-title">sendAndTrack</span> tracker toMsg request =
+    <span class="hljs-type">Api</span>.withTracker tracker request
+</code></pre>
+<h3 id="withheader-and-withheaders"><code>withHeader</code> and <code>withHeaders</code></h3>
+<p>OpenAPI allows you to specify what headers need to be send.
+On top of that you can define your own additional (set of) header(s) on each request.</p>
+<p>An example:</p>
+<pre><code class="lang-elm"><span class="hljs-title">sendAuthenticated</span> : <span class="hljs-type">String</span> -&gt; (<span class="hljs-type">Result</span> <span class="hljs-type">Http</span>.<span class="hljs-type">Error</span> a -&gt; msg) -&gt; <span class="hljs-type">Request</span> a -&gt; <span class="hljs-type">Cmd</span> msg
+<span class="hljs-title">sendAuthenticated</span> token toMsg request =
+    <span class="hljs-type">Api</span>.withHeader <span class="hljs-string">&quot;ACCESS_TOKEN&quot;</span> token request
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="generated_code/paths.html" class="navigation navigation-prev " aria-label="Previous page: Paths">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="qa.html" class="navigation navigation-next " aria-label="Next page: Q&A">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Customization","level":"1.5","depth":1,"next":{"title":"Q&A","level":"1.6","depth":1,"path":"qa.md","ref":"qa.md","articles":[]},"previous":{"title":"Paths","level":"1.4.2","depth":2,"path":"generated_code/paths.md","ref":"generated_code/paths.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Erik Timmers","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Elm with OpenAPI","gitbook":"*","description":"Learn how to use Elm with the OpenAPI Generator"},"file":{"path":"customization.md","mtime":"2019-12-29T17:04:19.905Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-29T17:05:01.176Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

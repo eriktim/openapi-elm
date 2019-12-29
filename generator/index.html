@@ -1,0 +1,387 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Generator · Elm with OpenAPI</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Erik Timmers">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="example.html" />
+    
+    
+    <link rel="prev" href="../openapi.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../openapi.html">
+            
+                <a href="../openapi.html">
+            
+                    
+                    OpenAPI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Generator
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="example.html">
+            
+                <a href="example.html">
+            
+                    
+                    Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../generated_code/">
+            
+                <a href="../generated_code/">
+            
+                    
+                    Generated code
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../generated_code/schemas.html">
+            
+                <a href="../generated_code/schemas.html">
+            
+                    
+                    Schemas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../generated_code/paths.html">
+            
+                <a href="../generated_code/paths.html">
+            
+                    
+                    Paths
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../customization.html">
+            
+                <a href="../customization.html">
+            
+                    
+                    Customization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../qa.html">
+            
+                <a href="../qa.html">
+            
+                    
+                    Q&A
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../contributions.html">
+            
+                <a href="../contributions.html">
+            
+                    
+                    Contributions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Generator</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="generator">Generator</h1>
+<p>The OpenAPI Generator can automatically generates source code for many different languages.
+This allows you to create your back-end code and Elm code using the same specification.
+This contract ensures your Elm code always gets the data it expects.</p>
+<p>There are <a href="https://openapi-generator.tech/" target="_blank">multiple ways</a> to run the generator, e.g. using a jar, docker image or npm.
+Here is an example on how to run the generator using npm:</p>
+<pre><code>npm install @openapitools/openapi-generator-cli -g
+openapi-generator generate -g elm -i openapi.yaml -o /path/to/generated
+elm-format --yes /path/to/generated # optional
+</code></pre><h2 id="generating-files">Generating files</h2>
+<p>The OpenAPI Generator normally generates a fully functional project in your language of choice.
+However, this is not always perfect as you typically have set-up your own project.
+Therefore, the generated Elm code only contains the required files and an <code>elm.json</code> for reference.</p>
+<p>Hence, the generator can be used in either of the two following ways.
+In either case I advice not to put any generated code under version control.</p>
+<h3 id="modify-elmjson">Modify <code>elm.json</code></h3>
+<p>Generate your Elm code in a sub-directory of your Elm project.
+Add the path to the <code>source_directories</code> of your <code>elm.json</code>.
+This is the recommended approach.</p>
+<p>Example:</p>
+<pre><code class="lang-bash">openapi-generator -g elm -i openapi.yaml -o generated
+edit elm.json <span class="hljs-comment"># add `generated/src` to `source_directories`</span>
+elm make src/Main.elm
+</code></pre>
+<h3 id="add-openapi-generator-ignore">Add <code>.openapi-generator-ignore</code></h3>
+<p>When you do not have any project yet, you can use the output of the generator as your initial code.
+Every time you run the generator it will override the files it needs, so you must be careful not to override any of your changes.
+For this you can add a <code>.openapi-generator-ignore</code> which works similar to <code>.gitignore</code>.
+It allows you to define what files should not be (re-)generated.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../openapi.html" class="navigation navigation-prev " aria-label="Previous page: OpenAPI">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="example.html" class="navigation navigation-next " aria-label="Next page: Example">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Generator","level":"1.3","depth":1,"next":{"title":"Example","level":"1.3.1","depth":2,"path":"generator/example.md","ref":"generator/example.md","articles":[]},"previous":{"title":"OpenAPI","level":"1.2","depth":1,"path":"openapi.md","ref":"openapi.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Erik Timmers","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Elm with OpenAPI","gitbook":"*","description":"Learn how to use Elm with the OpenAPI Generator"},"file":{"path":"generator/README.md","mtime":"2019-12-29T17:04:19.905Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-29T17:05:01.176Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

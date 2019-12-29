@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · Elm with OpenAPI</title>
+        <title>OpenAPI · Elm with OpenAPI</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="openapi.html" />
+    <link rel="next" href="generator/" />
     
+    
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -87,7 +89,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -100,7 +102,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="openapi.html">
+        <li class="chapter active" data-level="1.2" data-path="openapi.html">
             
                 <a href="openapi.html">
             
@@ -259,7 +261,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >OpenAPI</a>
     </h1>
 </div>
 
@@ -274,9 +276,19 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="elm-with-openapi">Elm with OpenAPI</h1>
-<p>This small guide tries to explain how to use the OpenAPI Generator with Elm
-and to give some background on what is being generated.</p>
+                                <h1 id="openapi">OpenAPI</h1>
+<p><a href="https://www.openapis.org" target="_blank">OpenAPI</a> is an initiative to standardise REST APIs.
+The <a href="https://openapi-generator.tech/" target="_blank">OpenAPI Generator</a> enable automatic generation of server interfaces, server stubs, clients (like Elm) and documentation.</p>
+<p>I do not want to go into details on the specification is that can be found on the official website.</p>
+<p>A few advantages of working with OpenAPI are:</p>
+<ul>
+<li>It defines a clear contract between front-end and back-end, making it easier to collaborate;</li>
+<li>For Elm it means you no longer have to write your own JSON decoders &amp; encoders as they get generated automatically;</li>
+<li>It keeps your data transfer models uncoupled from your internal data models;</li>
+<li>It forces you to design your REST APIs in a language agnostic fashion;</li>
+<li>It enables easy refactoring as updating your specification will result in compile time errors on both server and client side;</li>
+<li>Your specification is also your (to be generated) documentation.</li>
+</ul>
 
                                 
                                 </section>
@@ -304,8 +316,12 @@ and to give some background on what is being generated.</p>
 
             
                 
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="openapi.html" class="navigation navigation-next navigation-unique" aria-label="Next page: OpenAPI">
+                
+                <a href="generator/" class="navigation navigation-next " aria-label="Next page: Generator">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -316,7 +332,7 @@ and to give some background on what is being generated.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"OpenAPI","level":"1.2","depth":1,"path":"openapi.md","ref":"openapi.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Erik Timmers","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Elm with OpenAPI","gitbook":"*","description":"Learn how to use Elm with the OpenAPI Generator"},"file":{"path":"README.md","mtime":"2019-12-29T17:04:19.905Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-29T17:05:01.176Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"OpenAPI","level":"1.2","depth":1,"next":{"title":"Generator","level":"1.3","depth":1,"path":"generator/README.md","ref":"generator/README.md","articles":[{"title":"Example","level":"1.3.1","depth":2,"path":"generator/example.md","ref":"generator/example.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Erik Timmers","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Elm with OpenAPI","gitbook":"*","description":"Learn how to use Elm with the OpenAPI Generator"},"file":{"path":"openapi.md","mtime":"2019-12-29T17:04:19.909Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-29T17:05:01.176Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

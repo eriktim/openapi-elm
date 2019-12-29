@@ -1,0 +1,727 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Schemas · Elm with OpenAPI</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Erik Timmers">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="paths.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../openapi.html">
+            
+                <a href="../openapi.html">
+            
+                    
+                    OpenAPI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../generator/">
+            
+                <a href="../generator/">
+            
+                    
+                    Generator
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../generator/example.html">
+            
+                <a href="../generator/example.html">
+            
+                    
+                    Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Generated code
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.4.1" data-path="schemas.html">
+            
+                <a href="schemas.html">
+            
+                    
+                    Schemas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="paths.html">
+            
+                <a href="paths.html">
+            
+                    
+                    Paths
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../customization.html">
+            
+                <a href="../customization.html">
+            
+                    
+                    Customization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../qa.html">
+            
+                <a href="../qa.html">
+            
+                    
+                    Q&A
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../contributions.html">
+            
+                <a href="../contributions.html">
+            
+                    
+                    Contributions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Schemas</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="schemas">Schemas</h1>
+<p>This section describes what Elm types are being generated from certain OpenAPI schemas.
+Each sub-section contains one or more OpenAPI schemas, a description and the resulting Elm code.
+The JSON encoders and decoders are not shown as they are not relevant for using the types.</p>
+<h2 id="primitives">Primitives</h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Primitive:</span>
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        string:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        number:</span>
+<span class="hljs-attr">          type:</span> number
+<span class="hljs-attr">        float:</span>
+<span class="hljs-attr">          type:</span> number
+<span class="hljs-attr">          format:</span> float
+<span class="hljs-attr">        double:</span>
+<span class="hljs-attr">          type:</span> number
+<span class="hljs-attr">          format:</span> double
+<span class="hljs-attr">        integer:</span>
+<span class="hljs-attr">          type:</span> integer
+<span class="hljs-attr">        short:</span>
+<span class="hljs-attr">          type:</span> integer
+<span class="hljs-attr">          format:</span> int32
+<span class="hljs-attr">        long:</span>
+<span class="hljs-attr">          type:</span> integer
+<span class="hljs-attr">          format:</span> int64
+<span class="hljs-attr">        boolean:</span>
+<span class="hljs-attr">          type:</span> boolean
+</code></pre>
+<p>The <code>Float</code> type in Elm is a 64 bit floating point number. Hence every <code>number</code> type is generated as a <code>Float</code>.
+The <code>Int</code> type however does not use a 64 bit representation. Currently, the generator ignores this fact and generates all <code>integer</code>s as an <code>Int</code>.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">Primitive</span> =
+    { string : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , number : <span class="hljs-type">Maybe</span> <span class="hljs-type">Float</span>
+    , float : <span class="hljs-type">Maybe</span> <span class="hljs-type">Float</span>
+    , double : <span class="hljs-type">Maybe</span> <span class="hljs-type">Float</span>
+    , integer : <span class="hljs-type">Maybe</span> <span class="hljs-type">Int</span>
+    , short : <span class="hljs-type">Maybe</span> <span class="hljs-type">Int</span>
+    , long : <span class="hljs-type">Maybe</span> <span class="hljs-type">Int</span>
+    , boolean : <span class="hljs-type">Maybe</span> <span class="hljs-type">Bool</span>
+    }
+</code></pre>
+<h2 id="enumerations">Enumerations</h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Enum:</span>
+<span class="hljs-attr">      type:</span> enum
+<span class="hljs-attr">      enum:</span>
+<span class="hljs-bullet">        -</span> foo
+<span class="hljs-bullet">        -</span> bar
+<span class="hljs-bullet">        -</span> baz
+</code></pre>
+<p>OpenAPI enumerations are generated as Elm custom types.
+Both string and integer values are supported.
+The generator also exposes a function to get a list of all available variants.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">Enum</span>
+    = <span class="hljs-type">EnumFoo</span>
+    | <span class="hljs-type">EnumBar</span>
+    | <span class="hljs-type">EnumBaz</span>
+
+
+<span class="hljs-title">enumVariants</span> =
+    [ <span class="hljs-type">EnumFoo</span>
+    , <span class="hljs-type">EnumBar</span>
+    , <span class="hljs-type">EnumBaz</span>
+    ]
+</code></pre>
+<h1 id="arrays">Arrays</h1>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Array:</span>
+<span class="hljs-attr">      required:</span>
+<span class="hljs-bullet">        -</span> array
+<span class="hljs-bullet">        -</span> arrayOfArray
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        array:</span>
+<span class="hljs-attr">          type:</span> array
+<span class="hljs-attr">          items:</span>
+<span class="hljs-attr">            type:</span> string
+<span class="hljs-attr">        arrayOfArray:</span>
+<span class="hljs-attr">          type:</span> array
+<span class="hljs-attr">          items:</span>
+<span class="hljs-attr">            type:</span> array
+<span class="hljs-attr">            items:</span>
+<span class="hljs-attr">              type:</span> string
+</code></pre>
+<p>Arrays becomes <code>List</code>s. Their items must always be present and not <code>null</code>.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">Array</span> =
+    { array : <span class="hljs-type">List</span> (<span class="hljs-type">String</span>)
+    , arrayOfArray : <span class="hljs-type">List</span> (<span class="hljs-type">List</span> (<span class="hljs-type">String</span>))
+    }
+</code></pre>
+<h2 id="required-and-nullable"><code>required</code> and <code>nullable</code></h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Absent:</span>
+<span class="hljs-attr">      required:</span>
+<span class="hljs-bullet">        -</span> required
+<span class="hljs-bullet">        -</span> nullable
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        default:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        required:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        nullable:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">          nullable:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">        requiredNullable:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">          nullable:</span> <span class="hljs-literal">true</span>
+</code></pre>
+<p>Officially, <code>required</code> and <code>nullable</code> should confirm to the following spec (&#x2714; valid, &#x2718; invalid):</p>
+<table>
+<thead>
+<tr>
+<th><code>required</code></th>
+<th><code>nullable</code></th>
+<th><code>{}</code></th>
+<th><code>{ value: null }</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>false</code></td>
+<td><code>false</code></td>
+<td>&#x2714;</td>
+<td>&#x2718;</td>
+</tr>
+<tr>
+<td><code>true</code></td>
+<td><code>false</code></td>
+<td>&#x2718;</td>
+<td>&#x2718;</td>
+</tr>
+<tr>
+<td><code>false</code></td>
+<td><code>true</code></td>
+<td>&#x2714;</td>
+<td>&#x2714;</td>
+</tr>
+<tr>
+<td><code>true</code></td>
+<td><code>true</code></td>
+<td>&#x2718;</td>
+<td>&#x2714;</td>
+</tr>
+</tbody>
+</table>
+<p>However, to fully support this the generator either needs a <code>Maybe (Maybe a)</code> for required, nullable fields or a new custom type.
+For simplicity reasons absent and <code>null</code> values are handled in a similar way, i.e. using a <code>Maybe</code>.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">Absent</span> =
+    { default : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , required : <span class="hljs-type">String</span>
+    , nullable : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , requiredNullable : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    }
+</code></pre>
+<h2 id="allof"><code>AllOf</code></h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Composed:</span>
+<span class="hljs-attr">      description:</span> Composed Model
+<span class="hljs-attr">      allOf:</span>
+<span class="hljs-bullet">        -</span> $ref: <span class="hljs-string">&quot;#/components/schemas/ComposedBase&quot;</span>
+<span class="hljs-attr">        - type:</span> object
+<span class="hljs-attr">          properties:</span>
+<span class="hljs-attr">            value:</span>
+<span class="hljs-attr">              type:</span> string
+<span class="hljs-attr">    ComposedBase:</span>
+<span class="hljs-attr">      required:</span>
+<span class="hljs-bullet">        -</span> base
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        base:</span>
+<span class="hljs-attr">          type:</span> number
+</code></pre>
+<p>Using <code>allOf</code> composes a new record using the properties from another schema.
+In the Elm code, <code>Composed</code> has no reference to <code>ComposedBase</code> here.
+See the next section on how to keep a hierarchy between the two.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">Composed</span> =
+    { base : <span class="hljs-type">Float</span>
+    , value : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    }
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">ComposedBase</span> =
+    { base : <span class="hljs-type">Float</span>
+    }
+</code></pre>
+<h2 id="allof-with-discriminator"><code>AllOf</code> with discriminator</h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Discriminated:</span>
+<span class="hljs-attr">      description:</span> Discriminated model
+<span class="hljs-attr">      required:</span>
+<span class="hljs-bullet">        -</span> kind
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        kind:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">      discriminator:</span>
+<span class="hljs-attr">        propertyName:</span> kind
+<span class="hljs-attr">    DiscriminatedA:</span>
+<span class="hljs-attr">      allOf:</span>
+<span class="hljs-bullet">        -</span> $ref: <span class="hljs-string">&quot;#/components/schemas/Discriminated&quot;</span>
+<span class="hljs-attr">        - type:</span> object
+<span class="hljs-attr">          properties:</span>
+<span class="hljs-attr">            a:</span>
+<span class="hljs-attr">              type:</span> string
+<span class="hljs-attr">    DiscriminatedB:</span>
+<span class="hljs-attr">      allOf:</span>
+<span class="hljs-bullet">        -</span> $ref: <span class="hljs-string">&quot;#/components/schemas/Discriminated&quot;</span>
+<span class="hljs-attr">        - type:</span> object
+<span class="hljs-attr">          properties:</span>
+<span class="hljs-attr">            b:</span>
+<span class="hljs-attr">              type:</span> string
+</code></pre>
+<p>Using <code>allOf</code> in combination with a <code>discriminator</code> results in two things:</p>
+<ul>
+<li>a custom type is generated with variants for each discriminated type and a <em>catch-all</em> variant for all other discriminator values;</li>
+<li>all variants add the base type via composition.</li>
+</ul>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">Discriminated</span>
+    = <span class="hljs-type">Discriminated</span> <span class="hljs-type">BaseDiscriminated</span>
+    | <span class="hljs-type">DiscriminatedDiscriminatedA</span> <span class="hljs-type">DiscriminatedA</span>
+    | <span class="hljs-type">DiscriminatedDiscriminatedB</span> <span class="hljs-type">DiscriminatedB</span>
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">BaseDiscriminated</span> =
+    { kind : <span class="hljs-type">String</span>
+    }
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">DiscriminatedA</span> =
+    { baseDiscriminated: <span class="hljs-type">BaseDiscriminated</span>
+    , a : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    }
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">DiscriminatedB</span> =
+    { baseDiscriminated: <span class="hljs-type">BaseDiscriminated</span>
+    , b : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    }
+</code></pre>
+<h2 id="oneof"><code>OneOf</code></h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    OneOf:</span>
+<span class="hljs-attr">      oneOf:</span>
+<span class="hljs-bullet">        -</span> $ref: <span class="hljs-string">&quot;#/components/schemas/OneOfA&quot;</span>
+<span class="hljs-bullet">        -</span> $ref: <span class="hljs-string">&quot;#/components/schemas/OneOfB&quot;</span>
+<span class="hljs-attr">    OneOfA:</span>
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        a:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">    OneOfB:</span>
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        b:</span>
+<span class="hljs-attr">          type:</span> string
+</code></pre>
+<p>Using <code>oneOf</code> makes Elm decode into one of the specified models.
+A custom type is generated that wraps all the different models.
+You may provide an additional <code>discriminator</code> to specify exactly what model you wish to decode to.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">OneOf</span>
+    = <span class="hljs-type">OneOfOneOfA</span> <span class="hljs-type">OneOfA</span>
+    | <span class="hljs-type">OneOfOneOfB</span> <span class="hljs-type">OneOfB</span>
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">OneOfA</span> =
+    { a : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    }
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">OneOfB</span> =
+    { b : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    }
+</code></pre>
+<h2 id="recursion">Recursion</h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Recursion:</span>
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        maybe:</span>
+          $ref: <span class="hljs-string">&quot;#/components/schemas/Recursion&quot;</span>
+<span class="hljs-attr">        list:</span>
+<span class="hljs-attr">          type:</span> array
+<span class="hljs-attr">          items:</span>
+            $ref: <span class="hljs-string">&quot;#/components/schemas/Recursion&quot;</span>
+<span class="hljs-attr">        ref:</span>
+          $ref: <span class="hljs-string">&quot;#/components/schemas/RecursionLoop&quot;</span>
+<span class="hljs-attr">    RecursionLoop:</span>
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        ref:</span>
+          $ref: <span class="hljs-string">&quot;#/components/schemas/Recursion&quot;</span>
+</code></pre>
+<p>OpenAPI allows you to specify recursive types.
+Elm cannot handle <a href="https://elm-lang.org/0.19.0/recursive-alias" target="_blank">recursive type aliases</a>.
+Therefore, when generating recursive types, addition types are generated that wrap the recursive properties in new types.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">Recursion</span> =
+    { maybe : <span class="hljs-type">RecursionMaybe</span>
+    , list : <span class="hljs-type">RecursionList</span>
+    , ref : <span class="hljs-type">RecursionRef</span>
+    }
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-type">RecursionMaybe</span> = <span class="hljs-type">RecursionMaybe</span> (<span class="hljs-type">Maybe</span> <span class="hljs-type">Recursion</span>)
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-type">RecursionList</span> = <span class="hljs-type">RecursionList</span> (<span class="hljs-type">Maybe</span> (<span class="hljs-type">List</span> (<span class="hljs-type">Recursion</span>)))
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-type">RecursionRef</span> = <span class="hljs-type">RecursionRef</span> (<span class="hljs-type">Maybe</span> <span class="hljs-type">RecursionLoop</span>)
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">RecursionLoop</span> =
+    { ref : <span class="hljs-type">RecursionLoopRef</span>
+    }
+
+
+<span class="hljs-keyword">type</span> <span class="hljs-type">RecursionLoopRef</span> = <span class="hljs-type">RecursionLoopRef</span> (<span class="hljs-type">Maybe</span> <span class="hljs-type">Recursion</span>)
+</code></pre>
+<h2 id="reserved-words">Reserved words</h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    Maybe:</span>
+<span class="hljs-attr">      properties:</span>
+<span class="hljs-attr">        type:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        if:</span>
+<span class="hljs-attr">          type:</span> boolean
+</code></pre>
+<p>Reserverd words get escaped by adding a <code>_</code> suffix.
+The generated encoders and decoders do use the originally specified property names.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">Maybe_</span> =
+    { type_ : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , if_ : <span class="hljs-type">Maybe</span> <span class="hljs-type">Bool</span>
+    }
+</code></pre>
+<h2 id="unsafe-characters">Unsafe characters</h2>
+<pre><code class="lang-yaml"><span class="hljs-attr">components:</span>
+<span class="hljs-attr">  schemas:</span>
+<span class="hljs-attr">    UnsafeCharacters:</span>
+<span class="hljs-attr">      properties:</span>
+        $prefix:
+<span class="hljs-attr">          type:</span> string
+        suffix$:
+<span class="hljs-attr">          type:</span> string
+        r@nd0m_$t<span class="hljs-comment">#ff:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        _before:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        after_:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        _both_:</span>
+<span class="hljs-attr">          type:</span> string
+<span class="hljs-attr">        in_the_middle:</span>
+<span class="hljs-attr">          type:</span> string
+</code></pre>
+<p>Unsafe characters are filtered out.
+The generated encoders and decoders do use the originally specified property names.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-keyword">alias</span> <span class="hljs-type">UnsafeCharacters</span> =
+    { prefix : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , suffix : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , rnd0mTff : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , before : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , after : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , both : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    , inTheMiddle : <span class="hljs-type">Maybe</span> <span class="hljs-type">String</span>
+    }
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Generated code">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="paths.html" class="navigation navigation-next " aria-label="Next page: Paths">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Schemas","level":"1.4.1","depth":2,"next":{"title":"Paths","level":"1.4.2","depth":2,"path":"generated_code/paths.md","ref":"generated_code/paths.md","articles":[]},"previous":{"title":"Generated code","level":"1.4","depth":1,"path":"generated_code/README.md","ref":"generated_code/README.md","articles":[{"title":"Schemas","level":"1.4.1","depth":2,"path":"generated_code/schemas.md","ref":"generated_code/schemas.md","articles":[]},{"title":"Paths","level":"1.4.2","depth":2,"path":"generated_code/paths.md","ref":"generated_code/paths.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Erik Timmers","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Elm with OpenAPI","gitbook":"*","description":"Learn how to use Elm with the OpenAPI Generator"},"file":{"path":"generated_code/schemas.md","mtime":"2019-12-29T17:04:19.905Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-29T17:05:01.176Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
