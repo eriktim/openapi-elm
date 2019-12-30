@@ -102,20 +102,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="../openapi.html">
-            
-                <a href="../openapi.html">
-            
-                    
-                    OpenAPI
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.3" data-path="../generator/">
+        <li class="chapter " data-level="1.2" data-path="../generator/">
             
                 <a href="../generator/">
             
@@ -129,7 +116,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="../generator/example.html">
+        <li class="chapter " data-level="1.2.1" data-path="../generator/example.html">
             
                 <a href="../generator/example.html">
             
@@ -147,7 +134,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="./">
+        <li class="chapter active" data-level="1.3" data-path="./">
             
                 <a href="./">
             
@@ -161,7 +148,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="schemas.html">
+        <li class="chapter " data-level="1.3.1" data-path="schemas.html">
             
                 <a href="schemas.html">
             
@@ -174,7 +161,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="paths.html">
+        <li class="chapter " data-level="1.3.2" data-path="paths.html">
             
                 <a href="paths.html">
             
@@ -192,12 +179,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../customization.html">
+        <li class="chapter " data-level="1.4" data-path="../customisation.html">
             
-                <a href="../customization.html">
+                <a href="../customisation.html">
             
                     
-                    Customization
+                    Customisation
             
                 </a>
             
@@ -205,7 +192,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="../qa.html">
+        <li class="chapter " data-level="1.5" data-path="../qa.html">
             
                 <a href="../qa.html">
             
@@ -218,7 +205,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../contributions.html">
+        <li class="chapter " data-level="1.6" data-path="../contributions.html">
             
                 <a href="../contributions.html">
             
@@ -279,21 +266,21 @@
                                 <h1 id="generated-code">Generated code</h1>
 <p>The generated Elm code consists of two major parts:</p>
 <ul>
-<li>Types, i.e. records (type aliases), custom types and custom types with data.
-All types are written the <code>Api/Data.elm</code> module;</li>
+<li>Types, i.e. records (type aliases) and custom types with or without data.
+All types are written to the <code>Api/Data.elm</code> module;</li>
 <li><code>Request</code>s for making HTTP requests.
 This type splits the native <a href="https://package.elm-lang.org/packages/elm/http/latest/Http#request" target="_blank"><code>Http.request</code></a> into two:
 (1) define the request to be made and
-(2) send the request via a command and a <code>msg</code>.</li>
+(2) create a command to send the request resulting in a <code>Msg</code>.</li>
 </ul>
 <p>The OpenAPI generator also generates a base module <code>Api.elm</code> containing the <code>Request</code> type and several useful library functions.
 The most important is the <code>send</code> function that allows you to convert a <code>Request</code> to a <code>Cmd msg</code>.
-See <a href="../customization.html">Customization</a> for more advanced usages.</p>
+See <a href="../customization.md">Customization</a> for more advanced usages.</p>
 <p>The generator uses as little dependencies as possible.
 However, when using one of the following OpenAPI formats you will need to load additional libraries:</p>
 <ul>
-<li><code>date</code> or <code>date-time</code> requires <code>elm/time</code> and <code>rtfeldman/elm-iso8601-date-strings</code> (via <code>Api/Time.elm</code>);</li>
-<li><code>uuid</code> requires <code>danyx23/elm-uuid</code>.</li>
+<li><strong><code>date</code></strong> and <strong><code>date-time</code></strong> require <a href="https://package.elm-lang.org/packages/elm/time/latest/" target="_blank">elm/time</a> and <a href="https://package.elm-lang.org/packages/rtfeldman/elm-iso8601-date-strings/latest" target="_blank">rtfeldman/elm-iso8601-date-strings</a> (imported in <code>Api/Time.elm</code>);</li>
+<li><strong><code>uuid</code></strong> requires <a href="https://package.elm-lang.org/packages/danyx23/elm-uuid/latest" target="_blank">danyx23/elm-uuid</a>.</li>
 </ul>
 <p>The next sections give some examples on OpenAPI specifications and the corresponding generated Elm code.</p>
 
@@ -339,7 +326,7 @@ However, when using one of the following OpenAPI formats you will need to load a
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Generated code","level":"1.4","depth":1,"next":{"title":"Schemas","level":"1.4.1","depth":2,"path":"generated_code/schemas.md","ref":"generated_code/schemas.md","articles":[]},"previous":{"title":"Example","level":"1.3.1","depth":2,"path":"generator/example.md","ref":"generator/example.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Erik Timmers","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Elm with OpenAPI","gitbook":"*","description":"Learn how to use Elm with the OpenAPI Generator"},"file":{"path":"generated_code/README.md","mtime":"2019-12-29T17:17:47.313Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-29T17:18:27.410Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Generated code","level":"1.3","depth":1,"next":{"title":"Schemas","level":"1.3.1","depth":2,"path":"generated_code/schemas.md","ref":"generated_code/schemas.md","articles":[]},"previous":{"title":"Example","level":"1.2.1","depth":2,"path":"generator/example.md","ref":"generator/example.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Erik Timmers","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Elm with OpenAPI","gitbook":"*","description":"Learn how to use Elm with the OpenAPI Generator"},"file":{"path":"generated_code/README.md","mtime":"2019-12-30T11:14:56.950Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-30T11:15:35.777Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
