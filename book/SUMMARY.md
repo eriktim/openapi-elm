@@ -6,6 +6,6 @@
 * [Generated code](generated_code/README.md)
   * [Schemas](generated_code/schemas.md)
   * [Paths](generated_code/paths.md)
-* [Customisation](customisation.md)
+* [Customization](customization.md)
 * [Q&A](qa.md)
 * [Contributions](contributions.md)

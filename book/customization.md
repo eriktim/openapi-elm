@@ -1,12 +1,12 @@
-# Customisation
+# Customization
 
 The `Request` type is a _opaque_ type that describes how to make an HTTP request.
-Each `Request` can be customised using the update functions in `Api.elm`, e.g. for adding headers, changing the base path or setting a timeout. Using the `send` function and a `Msg` the request can be converted to a `Cmd Msg` which allows Elm to make the actual call.
+Each `Request` can be customized using the update functions in `Api.elm`, e.g. for adding headers, changing the base path or setting a timeout. Using the `send` function and a `Msg` the request can be converted to a `Cmd Msg` which allows Elm to make the actual call.
 
-The customisation also allows you to set-up your own generic solution for making HTTP requests.
+The customization also allows you to set-up your own generic solution for making HTTP requests.
 Let's say you need to add an authentication header to each request and your base path is loaded from your program's flags.
 You capture this data and store it in a `Server` record.
-The customisation enables you to define your own `send` function like this:
+The customization enables you to define your own `send` function like this:
 
 ```elm
 type alias Server =
@@ -24,19 +24,24 @@ send { basePath, accessToken } toMsg request =
 
 Now throughout your program you can use this function instead of the default `Api.send`.
 
-The following sub-sections explain the possibile customisations.
+The following sub-sections explain the possible customizations.
 
 ### `map`
 
-`Api.map` allows you to change the return type of a `Request`.
-This may be usefull when the OpenAPI specification returns a different type from what you would like to use.
+`Api.map` allows you to change the return type of a `Request` by mapping a `Request a` to a `Request b`.
+This may be useful when the OpenAPI specification returns a different type from what you would like to use.
 
-An example:
+As an example let's assume we generated the following function:
 
 ```elm
--- generated code
 updateUser : Api.Data.User -> Api.Request Api.Data.User
+```
 
+`updateUser` takes an gives us a `Api.Data.User`. If we rather work with our
+own `CustomUser` instead we can map both the input and the output types using
+composition and `Api.map`:
+
+```elm
 toCustomUser : Api.Data.User -> CustomUser
 
 fromCustomUser : CustomUser -> Api.Data.User
@@ -45,10 +50,12 @@ updateCustomUser : CustomUser -> Api.Request CustomUser
 updateCustomUser = Api.map toCustomUser << updateUser << fromCustomUser
 ```
 
+We now should use `updateCustomUser` instead of `updateUser`.
+
 ### `withBasePath`
 
 You can override the base path as defined in the OpenAPI specification.
-You can do this per request or you can fully customise the `Api.send`.
+You can do this per request or you can fully customize the `Api.send`.
 
 An example:
 
@@ -79,7 +86,7 @@ sendWithTimeout toMsg request =
 ### `withTracker`
 
 Elm HTTP allows you to [track](https://package.elm-lang.org/packages/elm/http/latest/Http#track) requests.
-Setting the same tracker for each request probably does not make much sense, but you can set one per requests or fully customise the `Api.send` to accept one.
+Setting the same tracker for each request probably does not make much sense, but you can set one per requests or fully customize the `Api.send` to accept one.
 
 An example:
 
