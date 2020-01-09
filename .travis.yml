@@ -9,7 +9,17 @@ cache:
   directories:
     - node_modules
 
-script: ./build.sh
+before_script:
+  - npm install -g elm
+  - wget -O example/openapi-generator.jar https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/5.0.0-SNAPSHOT/openapi-generator-cli-5.0.0-20200110.094156-25.jar
+
+script:
+  - ./build.sh
+  - cd example
+  - java -jar openapi-generator.jar generate -g elm -i swapi.yaml -o generated
+  - elm make src/Main.elm
+  - mkdir ../_book/example
+  - mv index.html ../_book/example
 
 deploy:
   provider: pages
