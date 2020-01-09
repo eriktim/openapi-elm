@@ -9,7 +9,16 @@ cache:
   directories:
     - node_modules
 
-script: ./build.sh
+before_script:
+  - npm install -g elm @openapitools/openapi-generator-cli
+
+script:
+  - ./build.sh
+  - cd example
+  - openapi-generator generate -g elm -i swapi.yaml -o generated
+  - elm make src/Main.elm
+  - mkdir ../_book/example
+  - mv index.html ../_book/example
 
 deploy:
   provider: pages
