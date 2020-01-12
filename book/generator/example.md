@@ -1,9 +1,14 @@
 # Example
 
+> Note: Currently, the Elm generator is not yet available via normal releases.
+> You can download the latest snapshot release from [this page](https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/5.0.0-SNAPSHOT/).
+
 This example uses the [Star Wars API](https://swapi.co/).
 See the [example source code](https://github.com/eriktim/openapi-elm/tree/master/example).
 The provided OpenAPI specification only covers part of the Star Wars API, namely getting a paginated list of planets or a specific one.
 As the model does not exactly match the data we want to have in Elm we use `Api.map` to map to a custom model instead.
+
+You can either view the [live example](https://eriktim.github.io/openapi-elm/example/) or run it locally:
 
 ```bash
 cd example
