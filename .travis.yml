@@ -10,7 +10,8 @@ cache:
     - node_modules
 
 before_script:
-  - wget -O openapi-generator.jar https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/5.0.0-SNAPSHOT/openapi-generator-cli-5.0.0-20200110.094156-25.jar
+  - npm install -g elm
+  - wget -O example/openapi-generator.jar https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/5.0.0-SNAPSHOT/openapi-generator-cli-5.0.0-20200110.094156-25.jar
 
 script:
   - ./build.sh

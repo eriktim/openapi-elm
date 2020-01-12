@@ -37,7 +37,7 @@ As an example let's assume we generated the following function:
 updateUser : Api.Data.User -> Api.Request Api.Data.User
 ```
 
-`updateUser` takes an gives us a `Api.Data.User`. If we rather work with our
+`updateUser` takes and gives us a `Api.Data.User`. If we rather work with our
 own `CustomUser` instead we can map both the input and the output types using
 composition and `Api.map`:
 
