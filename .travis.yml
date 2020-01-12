@@ -10,12 +10,12 @@ cache:
     - node_modules
 
 before_script:
-  - npm install -g elm @openapitools/openapi-generator-cli
+  - wget -O openapi-generator.jar https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/5.0.0-SNAPSHOT/openapi-generator-cli-5.0.0-20200110.094156-25.jar
 
 script:
   - ./build.sh
   - cd example
-  - openapi-generator generate -g elm -i swapi.yaml -o generated
+  - java -jar openapi-generator.jar generate -g elm -i swapi.yaml -o generated
   - elm make src/Main.elm
   - mkdir ../_book/example
   - mv index.html ../_book/example
