@@ -138,3 +138,33 @@ Note that one of the headers is required while the other is not.
 ```elm
 headerPost : String -> Maybe Int -> Api.Request String
 ```
+
+### Security
+
+```yaml
+paths:
+  /secured:
+    post:
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Authenticated
+        "401":
+          description: Unauthenticated
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+```
+
+OpenAPI also allows you to add a security scheme to a single or all requests.
+The Elm generator currently only supports using bearer tokens.
+This adds an additional `String` token parameter to the relevant request functions.
+The request will have an additional `Authorization: Bearer <token>` header attached.
+
+```elm
+securedPost : String -> Api.Request ()
+```

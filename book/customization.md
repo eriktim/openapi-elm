@@ -98,6 +98,21 @@ sendAndTrack tracker toMsg request =
         |> Api.send toMsg
 ```
 
+### `withBearerToken`
+
+OpenAPI allows you to specify what security scheme your API uses.
+When using bearer authorization a header with the token is added using this function.
+
+An example:
+
+```elm
+sendAuthenticated : String -> (Result Http.Error a -> msg) -> Request a -> Cmd msg
+sendAuthenticated token toMsg request =
+    request
+        |> Api.withBearerToken token
+        |> Api.send toMsg
+```
+
 ### `withHeader` and `withHeaders`
 
 OpenAPI allows you to specify what headers need to be send.
@@ -106,9 +121,9 @@ On top of that you can define your own additional (set of) header(s) on each req
 An example:
 
 ```elm
-sendAuthenticated : String -> (Result Http.Error a -> msg) -> Request a -> Cmd msg
-sendAuthenticated token toMsg request =
+sendWithHeader : (Result Http.Error a -> msg) -> Request a -> Cmd msg
+sendWithHeader toMsg request =
     request
-        |> Api.withHeader "ACCESS_TOKEN" token
+        |> Api.withHeader "Max-Forwards" "10"
         |> Api.send toMsg
 ```
