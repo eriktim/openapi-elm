@@ -127,3 +127,62 @@ sendWithHeader toMsg request =
         |> Api.withHeader "Max-Forwards" "10"
         |> Api.send toMsg
 ```
+
+### `send` and `sendWithCustomError`
+
+The basic `send` function takes a `Request a` and eventually results in a message of `Result Http.Error a` once the `Cmd` is handled by the Elm runtime.
+`sendWithCustomError` allows you to map the `Http.Error` before making the actual request.
+This allows you to add custom error handling for all your requests.
+
+An example:
+
+```elm
+type ApiError
+    = Unauthorized
+    | Forbidden
+    | NotFound
+    | ApiError String
+
+
+sendWithCustomError : (Result ApiError a -> msg) -> Request a -> Cmd msg
+sendWithCustomError =
+    Api.sendWithCustomError (\result ->
+        case result of
+            Ok v ->
+                Ok v
+
+            Err (BadUrl _) ->
+                ApiError "Oops, we messed up!"
+
+            Err Timeout ->
+                ApiError "Server timeout. Please try again later."
+
+            Err NetworkError ->
+                ApiError "Network error."
+
+            Err (BadStatus code) ->
+                case code of
+                    401 ->
+                        Unauthorized
+
+                    403 ->
+                        Forbidden
+
+                    404 ->
+                        NotFound
+
+                    _ ->
+                        ApiError "Oops, the request failed."
+
+            Err (BadBody _) ->
+                ApiError "Oops, we messed up!"
+    )
+```
+
+### `task`
+
+Just like Elm's Http library, the generator also supports both commands and tasks.
+You can use `task` to create a `Task` from a `Request`.
+If you simply need a `Cmd msg` then `send` is the better option here.
+
+Note: _tracking_ requests is not supported when using tasks as it is also not supported in the native library.
