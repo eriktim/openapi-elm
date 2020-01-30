@@ -7001,7 +7001,7 @@ var $author$project$Api$request = F7(
 				tracker: $elm$core$Maybe$Nothing
 			});
 	});
-var $author$project$Api$Request$Swapi$getPlanets = function (page) {
+var $author$project$Api$Request$Swapi$getPlanets = function (page_query) {
 	return A7(
 		$author$project$Api$request,
 		'GET',
@@ -7011,7 +7011,7 @@ var $author$project$Api$Request$Swapi$getPlanets = function (page) {
 			[
 				_Utils_Tuple2(
 				'page',
-				A2($elm$core$Maybe$map, $elm$core$String$fromInt, page))
+				A2($elm$core$Maybe$map, $elm$core$String$fromInt, page_query))
 			]),
 		_List_Nil,
 		$elm$core$Maybe$Nothing,
@@ -7107,7 +7107,61 @@ var $elm$url$Url$Builder$crossOrigin = F3(
 	function (prePath, pathSegments, parameters) {
 		return prePath + ('/' + (A2($elm$core$String$join, '/', pathSegments) + $elm$url$Url$Builder$toQuery(parameters)));
 	});
+var $elm$http$Http$BadStatus = function (a) {
+	return {$: 'BadStatus', a: a};
+};
+var $elm$http$Http$BadUrl = function (a) {
+	return {$: 'BadUrl', a: a};
+};
+var $elm$http$Http$NetworkError = {$: 'NetworkError'};
+var $elm$http$Http$Timeout = {$: 'Timeout'};
+var $elm$http$Http$BadBody = function (a) {
+	return {$: 'BadBody', a: a};
+};
 var $elm$json$Json$Decode$decodeString = _Json_runOnString;
+var $author$project$Api$decodeBody = F2(
+	function (decoder, body) {
+		var _v0 = A2($elm$json$Json$Decode$decodeString, decoder, body);
+		if (_v0.$ === 'Ok') {
+			var value = _v0.a;
+			return $elm$core$Result$Ok(value);
+		} else {
+			var err = _v0.a;
+			return $elm$core$Result$Err(
+				$elm$http$Http$BadBody(
+					$elm$json$Json$Decode$errorToString(err)));
+		}
+	});
+var $author$project$Api$decodeResponse = F2(
+	function (decoder, response) {
+		switch (response.$) {
+			case 'BadUrl_':
+				var url = response.a;
+				return $elm$core$Result$Err(
+					$elm$http$Http$BadUrl(url));
+			case 'Timeout_':
+				return $elm$core$Result$Err($elm$http$Http$Timeout);
+			case 'NetworkError_':
+				return $elm$core$Result$Err($elm$http$Http$NetworkError);
+			case 'BadStatus_':
+				var metadata = response.a;
+				return $elm$core$Result$Err(
+					$elm$http$Http$BadStatus(metadata.statusCode));
+			default:
+				var body = response.b;
+				if ($elm$core$String$isEmpty(body)) {
+					var _v1 = A2($elm$json$Json$Decode$decodeString, decoder, '{}');
+					if (_v1.$ === 'Ok') {
+						var value = _v1.a;
+						return $elm$core$Result$Ok(value);
+					} else {
+						return A2($author$project$Api$decodeBody, decoder, body);
+					}
+				} else {
+					return A2($author$project$Api$decodeBody, decoder, body);
+				}
+		}
+	});
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
 		return g(
@@ -7132,52 +7186,15 @@ var $elm$core$Result$mapError = F2(
 				f(e));
 		}
 	});
-var $elm$http$Http$BadBody = function (a) {
-	return {$: 'BadBody', a: a};
-};
-var $elm$http$Http$BadStatus = function (a) {
-	return {$: 'BadStatus', a: a};
-};
-var $elm$http$Http$BadUrl = function (a) {
-	return {$: 'BadUrl', a: a};
-};
-var $elm$http$Http$NetworkError = {$: 'NetworkError'};
-var $elm$http$Http$Timeout = {$: 'Timeout'};
-var $elm$http$Http$resolve = F2(
-	function (toResult, response) {
-		switch (response.$) {
-			case 'BadUrl_':
-				var url = response.a;
-				return $elm$core$Result$Err(
-					$elm$http$Http$BadUrl(url));
-			case 'Timeout_':
-				return $elm$core$Result$Err($elm$http$Http$Timeout);
-			case 'NetworkError_':
-				return $elm$core$Result$Err($elm$http$Http$NetworkError);
-			case 'BadStatus_':
-				var metadata = response.a;
-				return $elm$core$Result$Err(
-					$elm$http$Http$BadStatus(metadata.statusCode));
-			default:
-				var body = response.b;
-				return A2(
-					$elm$core$Result$mapError,
-					$elm$http$Http$BadBody,
-					toResult(body));
-		}
-	});
-var $elm$http$Http$expectJson = F2(
-	function (toMsg, decoder) {
+var $author$project$Api$expectJson = F3(
+	function (mapError, toMsg, decoder) {
 		return A2(
 			$elm$http$Http$expectStringResponse,
 			toMsg,
-			$elm$http$Http$resolve(
-				function (string) {
-					return A2(
-						$elm$core$Result$mapError,
-						$elm$json$Json$Decode$errorToString,
-						A2($elm$json$Json$Decode$decodeString, decoder, string));
-				}));
+			A2(
+				$elm$core$Basics$composeL,
+				$elm$core$Result$mapError(mapError),
+				$author$project$Api$decodeResponse(decoder)));
 	});
 var $elm$http$Http$Request = function (a) {
 	return {$: 'Request', a: a};
@@ -7329,19 +7346,23 @@ var $elm$http$Http$request = function (r) {
 		$elm$http$Http$Request(
 			{allowCookiesFromOtherDomains: false, body: r.body, expect: r.expect, headers: r.headers, method: r.method, timeout: r.timeout, tracker: r.tracker, url: r.url}));
 };
-var $author$project$Api$send = F2(
-	function (toMsg, _v0) {
+var $author$project$Api$sendWithCustomError = F3(
+	function (mapError, toMsg, _v0) {
 		var req = _v0.a;
 		return $elm$http$Http$request(
 			{
 				body: req.body,
-				expect: A2($elm$http$Http$expectJson, toMsg, req.decoder),
+				expect: A3($author$project$Api$expectJson, mapError, toMsg, req.decoder),
 				headers: req.headers,
 				method: req.method,
 				timeout: req.timeout,
 				tracker: req.tracker,
 				url: A3($elm$url$Url$Builder$crossOrigin, req.basePath, req.pathParams, req.queryParams)
 			});
+	});
+var $author$project$Api$send = F2(
+	function (toMsg, req) {
+		return A3($author$project$Api$sendWithCustomError, $elm$core$Basics$identity, toMsg, req);
 	});
 var $author$project$Main$loadPlanetPage = function (page) {
 	return _Utils_Tuple2(
