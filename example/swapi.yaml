@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: The Star Wars API
 servers:
-  - url: https://swapi.co/api/
+  - url: https://swapi.dev/api/
 paths:
   /planets:
     get:
