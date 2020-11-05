@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "gitbook": "./node_modules/.bin/gitbook install && ./node_modules/.bin/gitbook build",
+    "example": "./node_modules/.bin/openapi-generator generate -g elm -i example/swapi.yaml -o example/generated/"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "1.0.18-5.0.0-beta2",
+    "gitbook-cli": "2.3.2"
+  }
+}

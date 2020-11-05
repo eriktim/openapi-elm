@@ -10,13 +10,14 @@ cache:
     - node_modules
 
 before_script:
-  - npm install -g elm
-  - wget -O example/openapi-generator.jar https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/5.0.0-SNAPSHOT/openapi-generator-cli-5.0.0-20200129.235929-35.jar
+  - yarn global add elm
+  - yarn
+  - sed -i s/statFix\(/\(/ node_modules/npm/node_modules/graceful-fs/polyfills.js # https://github.com/nodejs/help/issues/2874
 
 script:
-  - ./build.sh
+  - yarn gitbook
+  - yarn example
   - cd example
-  - java -jar openapi-generator.jar generate -g elm -i swapi.yaml -o generated
   - elm make src/Main.elm
   - mkdir ../_book/example
   - mv index.html ../_book/example
